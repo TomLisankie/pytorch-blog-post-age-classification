@@ -15,8 +15,10 @@ def get_single_sample(post, gender, age):
     return {'post': post, 'gender': gender, 'age': age}
 
 files = [f for f in os.listdir(xmlDataDirPath) if isfile(join(xmlDataDirPath, f))]
+files_length = len(files)
 counter = 0
 jsonName = "the-data.json"
+processed_count = 0
 for xmlName in files:
     print("Starting on", xmlName)
     fileNameElements = xmlName.split('.') # So we can get the gender and age of the person
@@ -46,3 +48,5 @@ for xmlName in files:
             
             json.dump(current_json_data, wf, indent=4, sort_keys=False)
             print("Done with", xmlName)
+            processed_count += 1
+            print("Done with", processed_count, "of", files_length)
