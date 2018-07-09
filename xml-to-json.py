@@ -19,6 +19,7 @@ files_length = len(files)
 counter = 0
 jsonName = "the-data.json"
 processed_count = 0
+json_docs = []
 for xmlName in files:
     print("Starting on", xmlName)
     fileNameElements = xmlName.split('.') # So we can get the gender and age of the person
@@ -34,19 +35,20 @@ for xmlName in files:
         current_json_data = []
 
     with open(join(xmlDataDirPath, xmlName), "rb") as rf:
-        with open(join(jsonDataDirPath, jsonName), mode='w') as wf:
-            content = BeautifulSoup(rf, features = "xml")
+        content = BeautifulSoup(rf, features = "xml")
 
-            new_data = []
-            for entry in content.findAll('Blog'):
-                posts = [elem.text.replace("\n", "").replace("\t", "").strip() for elem in entry.findAll('post')]
-                for post in posts:
-                    new_data.append(get_single_sample(post, fileNameElements[1], fileNameElements[2]))
-            
-            for instance in new_data:
-                current_json_data.append(instance)
-            
-            json.dump(current_json_data, wf, indent=4, sort_keys=False)
-            print("Done with", xmlName)
-            processed_count += 1
-            print("Done with", processed_count, "of", files_length)
+        new_data = []
+        for entry in content.findAll('Blog'):
+            posts = [elem.text.replace("\n", "").replace("\t", "").strip() for elem in entry.findAll('post')]
+            for post in posts:
+                new_data.append(get_single_sample(post, fileNameElements[1], fileNameElements[2]))
+        
+        for instance in new_data:
+            json_docs.append(instance)
+        
+        print("Done with", xmlName)
+        processed_count += 1
+        print("Done with", processed_count, "of", files_length)
+
+with open(join(jsonDataDirPath, jsonName), mode='w') as wf:
+    json.dump(json_docs, wf, indent=4, sort_keys=False)
