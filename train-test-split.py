@@ -17,6 +17,7 @@ print("Shuffling the data")
 shuffle(json_data)
 print("Data shuffled.")
 
+total_data_instances = len(json_data)
 train_sample_count = int(ceil(train_split * total_data_instances))
 test_sample_count = total_data_instances - train_sample_count
 
