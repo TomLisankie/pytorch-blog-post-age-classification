@@ -1,6 +1,7 @@
 import json
 import random
 from math import ceil
+from sys import exit
 
 random.seed(22)
 
@@ -11,8 +12,14 @@ test_file_path = JSON_DIR + "test.json"
 train_split = 0.8
 
 print("Loading all data")
-with open(input_file_path) as r:
-    json_data = json.load(r)
+try:
+    with open(input_file_path) as r:
+        json_data = json.load(r)
+except FileNotFoundError:
+    print("The file `the-data.json` was not found.")
+    print("It's either in the wrong directory or you have not created it.")
+    print("To create it, run `xml-to-json.py`.")
+    exit()
 print("Data loaded.")
 
 print("Shuffling the data")
