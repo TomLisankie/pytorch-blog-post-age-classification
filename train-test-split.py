@@ -9,7 +9,8 @@ test_file_path = JSON_DIR + "test.json"
 train_split = 0.8
 
 print("Loading all data")
-json_data = json.load(input_file_path)
+with open(input_file_path) as r:
+    json_data = json.load(r)
 print("Data loaded.")
 
 print("Shuffling the data")
