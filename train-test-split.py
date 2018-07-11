@@ -1,6 +1,8 @@
 import json
-from random import shuffle
+import random
 from math import ceil
+
+random.seed(22)
 
 JSON_DIR = "data/blogs/json-data/"
 input_file_path = JSON_DIR + "the-data.json"
@@ -14,7 +16,7 @@ with open(input_file_path) as r:
 print("Data loaded.")
 
 print("Shuffling the data")
-shuffle(json_data)
+random.shuffle(json_data)
 print("Data shuffled.")
 
 total_data_instances = len(json_data)
