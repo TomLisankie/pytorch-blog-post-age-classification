@@ -25,7 +25,7 @@ print("Creating a training set of", train_sample_count, "instances.")
 train_list = json_data[ : train_sample_count]
 print("Training set created.")
 
-print("Creating a testing set of", train_sample_count, "instances.")
+print("Creating a testing set of", test_sample_count, "instances.")
 test_list = json_data[train_sample_count : ]
 print("Testing set created.")
 
