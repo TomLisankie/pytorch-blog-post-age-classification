@@ -49,6 +49,7 @@ for epoch in range(300):
 
         sentence_in = prepare_sequence(instance["post"], word_to_int)
         group = instance["age"]
+        print("Group Length:", len(group))
 
         group_scores = model(sentence_in)
 

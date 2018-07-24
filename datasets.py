@@ -16,6 +16,7 @@ class BlogPostDataset(data.Dataset):
         self.data_root_path = data_root_path
         with open(self.data_root_path + json_file_name) as r:
             self.json_data = json.load(r)
+            print(self.json_data[0]["post"])
         for instance in self.json_data:
             instance["post"] = instance["post"].split(" ")
             instance["gender"] = self.get_gender_as_num(instance["gender"])
@@ -27,7 +28,7 @@ class BlogPostDataset(data.Dataset):
         else:
             return 1
 
-    def get_age_group(self, age):
+    def get_age_group(self, age): # HIGH NOTE: changing each of the scalars to a vector. This is probably not a good idea
         if age < 18:
             # 13 - 17
             return [1, 0, 0]

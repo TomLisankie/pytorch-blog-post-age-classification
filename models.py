@@ -32,4 +32,6 @@ class BasicLSTMAgeClassifier(nn.Module):
         lstm_out, self.hidden = self.lstm(embeds.view(len(sentence), 1, -1), self.hidden)
         group_space = self.hidden2group(lstm_out.view(len(sentence), -1))
         group_scores = F.log_softmax(group_space, dim = 1)
+        print(type(group_scores))
+        print("Group Scores Length:", len(group_scores))
         return group_scores
