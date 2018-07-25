@@ -15,10 +15,13 @@ training_set = datasets.BlogPostDataset(blog_posts_data_dir, train_file_name)
 
 # Map each word to a unique int value
 word_to_int = {}
+words = []
 for instance in training_set:
     for word in instance["post"]:
         if word not in word_to_int:
             word_to_int[word] = len(word_to_int)
+        if word not in words:
+            words.append(word)
 
 def prepare_sequence(seq, word_to_int):
     ints = [word_to_int[w] for w in seq]
@@ -28,7 +31,7 @@ def prepare_sequence(seq, word_to_int):
 EMBEDDING_DIM = 32
 HIDDEN_DIM = 15
 NUM_AGE_GROUPS = 3
-model = models.BasicLSTMAgeClassifier(EMBEDDING_DIM, len(word_to_int), HIDDEN_DIM, NUM_AGE_GROUPS)
+model = models.BasicLSTMAgeClassifier(EMBEDDING_DIM, words, HIDDEN_DIM, NUM_AGE_GROUPS)
 loss_function = nn.NLLLoss()
 optimizer = optim.SGD(model.parameters(), lr = 0.1)
 
